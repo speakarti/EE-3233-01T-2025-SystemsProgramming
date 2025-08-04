@@ -87,3 +87,16 @@ Q9 : whyy cant one one make a hard link across two file systems
 
  inodes are specific to a single filesystem. They cant be shared as they are not visible across different mounted file systems (e.g., from /mnt/zfsdrive to /mnt/usb). when we fiormat a block device, we provide type of filesystem we want to use on that block device like FAT, FAT32, NTFS, EXT4, ZFS. and these all different filesystems creates different types of inode tables and there is no common system wharing these inode tables. 
  and A hard link points directly to the inode of a file. when we create a new hard link, it creates an entry in the folder pointing to same inode as the original file. if we change one hard link, another gets changed automatically. 
+
+ Q10: what are some synchronization techniques when creating processes using fork?
+
+When using fork(), synchronization between processes is essential to prevent race conditions. Common techniques include:
+wait()/waitpid(): Ensures the parent waits for the child to finish, preventing zombie processes.
+Pipes: Simple, one-way communication between parent and child.
+Signals: Useful for event notification but require careful handling.
+Shared Memory with Semaphores: Fast and efficient for sharing data, but needs synchronization to avoid conflicts, like counters, mutesx etc.
+File Locks: Used to safely access shared files across processes.
+Message Queues: Allow structured communication, useful for complex synchronization needs.
+
+Each method has trade-offs depending on the use case and complexity of inter-process coordination.
+
